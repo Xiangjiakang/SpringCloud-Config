@@ -1,0 +1,82 @@
+spring:
+  profiles:
+    active: dev
+
+---
+server:
+  port: 8001
+
+mybatis:
+  type-aliases-package: xiang.bean.User
+  mapper-locations: classpath:mybatis/mapper/*.xml
+
+spring:
+  profiles: dev
+  application:
+    name: springcloud-config-user 
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql:///springcloud?useSSL=false&charcterEncoding=utf-8&serverTimezone=UTC
+    username: root
+    password:
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/, http://eureka7003.com:7003/eureka/
+  instance:
+    instance-id: 服务提供者-8001  # eureka默认描述
+    prefer-ip-address: true     # 显示服务的ip地址
+
+# actuator 配置info界面，链接跳转的信息
+info:
+  info: 这是服务提供者8001端口，没有更多信息了~~
+  abcd: 还可以配置更多，名字随意取~
+  author.name: 向到极致
+  author.age: 21
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+---
+server:
+  port: 8002
+
+mybatis:
+  type-aliases-package: xiang.bean.User
+  mapper-locations: classpath:mybatis/mapper/*.xml
+
+spring:
+  application:
+    profiles: test   
+    name: springcloud-provider-user
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql:///springcloud?useSSL=false&charcterEncoding=utf-8&serverTimezone=UTC
+    username: root
+    password:
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/, http://eureka7003.com:7003/eureka/
+  instance:
+    instance-id: 服务提供者-8002  # eureka默认描述
+
+# actuator 配置info界面，链接跳转的信息
+info:
+  info: 这是服务提供者8002端口，没有更多信息了~~
+  abcd: 还可以配置更多，名字随意取~
+  author.name: 向到极致
+  author.age: 21
